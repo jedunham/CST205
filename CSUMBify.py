@@ -5,42 +5,22 @@ def CSUMBify():
   pic = makePicture(pickAFile())
   border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\waveborder.jpg")
   pic = addBorder(pic, border)
-  #target = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 3\Lab7\Thanksgiving Card\Image Library\leavesbg.jpg")
-  
-  #target = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 3\Lab7\Thanksgiving Card\Image Library\leavesbg.jpg")
-  #target = grCopy(source1, target, 93, 14)
-  #source2 = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 3\Lab7\Thanksgiving Card\Image Library\\turkey.jpg")
-  #target = grCopy(source2, target, 300, 220)
-  #source3 = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 3\Lab7\Thanksgiving Card\Image Library\cornucopia.png")
-  #target = whCopy(source3, target, 189, 311)
-  #myFont1 = makeStyle("Gill Sans Ultra Bold Condensed", bold, 15)
-  #fontColor1 = makeColor(204, 102, 0)
-  #myFont2 = makeStyle("Lucida Calligraphy", bold, 16)
-  #fontColor2 = makeColor(102, 0, 102)
-  #str1 = "Thank you for"
-  #str2 = "not eating me!"
-  #str3 = "Gobble gobble!"
-  #addTextWithStyle(target, 350, 264, str1, myFont1, fontColor1)
-  #addTextWithStyle(target, 348, 283, str2, myFont1, fontColor1)
-  #addTextWithStyle(target, 348, 303, str3, myFont1, fontColor1)
-  #str4 = "From Jennifer Dunham"
-  #addTextWithStyle(target, 7, 471, str4, myFont2, fontColor2)
-  #show(target)
-  #return target
+ 
   return pic
 
 def addBorder(pic, border):
   """adds wave border to pic"""
   #bottomborder
+  borderDim=30
   targetX = 0
   targetY = getHeight(pic)-getHeight(border)
-  for i in range(int(getWidth(pic)/30)):
+  for i in range(int(getWidth(pic)/borderDim)):
     for x in range (0, getWidth(border)):
       for y in range (0, getHeight(border)):
         color = getColor(getPixel(border, x, y))
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
-    targetX = targetX + 30
+    targetX = targetX + borderDim
   #rotate wave border 180°
   border180 = makeEmptyPicture(getWidth(border), getHeight(border))
   for x in range(0, getWidth(border)):
@@ -50,13 +30,29 @@ def addBorder(pic, border):
   #topborder
   targetX = 0
   targetY = 0
-  for i in range(0, int(getWidth(pic)/30)):
+  for i in range(0, int(getWidth(pic)/borderDim)):
     for x in range(0, getWidth(border180)):
       for y in range(0, getHeight(border180)):
         color = getColor(getPixel(border180, x, y))
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
-    targetX = targetX + 30
+    targetX = targetX + borderDim
+  #rotate wave border 90° CW
+  borderCW = makeEmptyPicture(getHeight(border), getWidth(border))
+  for x in range(0, getWidth(border)):
+    for y in range(0, getHeight(border)):
+      px = getColor(getPixel(border, x, y))
+      setColor(getPixel(borderCW, y, getWidth(border)-x-1), px)
+  #rightborder
+  targetX = getWidth(pic) - borderDim
+  targetY = 0
+  for i in range(0, int(getHeight(pic)/borderDim)):
+    for x in range(0, getWidth(borderCW)):
+      for y in range(0, getHeight(borderCW)):
+        color = getColor(getPixel(borderCW, x, y))
+        if distance(color, white) > 75.0:
+          setColor(getPixel(pic, x+targetX, y+targetY), color)
+    targetY = targetY + borderDim
   show(pic)
   return pic  
 
