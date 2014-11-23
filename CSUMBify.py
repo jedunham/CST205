@@ -3,8 +3,9 @@
 def CSUMBify():
   """TEXT DESCRIBING FILTER"""
   pic = makePicture(pickAFile())
+  pic = CSUMBBlend(pic)
   pic = addBorder(pic)
- 
+   
   show(pic)
   return pic
 
@@ -109,3 +110,39 @@ def addBorder(pic):
       if distance(color, white) > 200.0:
         setColor(getPixel(pic, x+targetX, y+targetY), color)
   return pic
+
+def CSUMBBlend(pic):  
+  bayBlue = makeColor(0, 34, 84)
+  goldenSand = makeColor(143, 134, 79)
+  valleyGreen = makeColor(0, 119, 81)
+  amount = 0.5
+  for x in range(0, getWidth(pic)/3):
+    for y in range(0, getHeight(pic)):
+      pixel = getPixel(pic, x, y)
+      px = getColor(pixel)
+      newBBRed = 0*amount + getRed(pixel)*(1-amount)
+      newBBGreen = 34*amount + getGreen(pixel)*(1-amount)
+      newBBBlue = 84*amount + getBlue(pixel)*(1-amount)
+      newColor = makeColor(newBBRed, newBBGreen, newBBBlue)
+      setColor(pixel, newColor)
+  for x in range(getWidth(pic)/3, getWidth(pic)*2/3):
+    for y in range(0, getHeight(pic)):
+      pixel = getPixel(pic, x, y)
+      px = getColor(pixel)
+      newGSRed = 143*amount + getRed(pixel)*(1-amount)
+      newGSGreen = 134*amount + getGreen(pixel)*(1-amount)
+      newGSBlue = 79*amount + getBlue(pixel)*(1-amount)
+      newColor = makeColor(newGSRed, newGSGreen, newGSBlue)
+      setColor(pixel, newColor)
+  for x in range(getWidth(pic)*2/3, getWidth(pic)):
+    for y in range(0, getHeight(pic)):
+      pixel = getPixel(pic, x, y)
+      px = getColor(pixel)
+      newVGRed = 0*amount + getRed(pixel)*(1-amount)
+      newVGGreen = 110*amount + getGreen(pixel)*(1-amount)
+      newVGBlue = 81*amount + getBlue(pixel)*(1-amount)
+      newColor = makeColor(newVGRed, newVGGreen, newVGBlue)
+      setColor(pixel, newColor)
+  return pic
+  
+ 
