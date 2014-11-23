@@ -3,15 +3,21 @@
 def CSUMBify():
   """TEXT DESCRIBING FILTER"""
   pic = makePicture(pickAFile())
-  border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\waveborder.jpg")
-  pic = addBorder(pic, border)
+  pic = addBorder(pic)
  
+  show(pic)
   return pic
 
-def addBorder(pic, border):
+def addBorder(pic):
   """adds wave border to pic"""
+  border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\waveborder.jpg")
+  bottomLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomleft.jpg")
+  bottomRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomright.jpg")
+  topLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topleft.jpg")
+  topRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topright.jpg")
+  borderDim=getHeight(border) #square image
+  cornerDim=getHeight(bottomLeft) #square image
   #bottomborder
-  borderDim=30
   targetX = 0
   targetY = getHeight(pic)-getHeight(border)
   for i in range(int(getWidth(pic)/borderDim)):
@@ -21,7 +27,7 @@ def addBorder(pic, border):
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
     targetX = targetX + borderDim
-  #rotate wave border 180°
+  #rotate wave border for top border°
   border180 = makeEmptyPicture(getWidth(border), getHeight(border))
   for x in range(0, getWidth(border)):
     for y in range(0, getHeight(border)):
@@ -37,7 +43,7 @@ def addBorder(pic, border):
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
     targetX = targetX + borderDim
-  #rotate wave border 90° CW
+  #rotate wave border for right border
   borderCW = makeEmptyPicture(getHeight(border), getWidth(border))
   for x in range(0, getWidth(border)):
     for y in range(0, getHeight(border)):
@@ -53,30 +59,53 @@ def addBorder(pic, border):
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
     targetY = targetY + borderDim
-  show(pic)
-  return pic  
-
-#need to rotatePicLeft(border):
-
-#need to rotatePicRight(border):
-
-
-
-
-def grCopy(source, target, targetX, targetY):
-  """copy a picture onto a target picture excluding green"""
-  for x in range (0, getWidth(source)):
-    for y in range (0, getHeight(source)):
-      color = getColor(getPixel(source, x, y))
-      if distance(color, green) > 165.0:
-        setColor(getPixel(target, x+targetX, y+targetY), color)
-  return target
-
-def whCopy(source, target, targetX, targetY):
-  """copy a picture onto a target picture excluding white"""
-  for x in range (0, getWidth(source)):
-    for y in range (0, getHeight(source)):
-      color = getColor(getPixel(source, x, y))
-      if distance(color, white) > 125.0:
-        setColor(getPixel(target, x+targetX, y+targetY), color)
-  return target  
+  #rotate wave border for right border
+  borderCCW = makeEmptyPicture(getHeight(border), getWidth(border))
+  for x in range(0, getWidth(border)):
+    for y in range(0, getHeight(border)):
+      px = getColor(getPixel(border, x, y))
+      setColor(getPixel(borderCCW, getHeight(border)-y-1, x), px)
+  #leftborder
+  targetX = 0
+  targetY = 0
+  for i in range(0, int(getHeight(pic)/borderDim)):
+    for x in range(0, getWidth(borderCCW)):
+      for y in range(0, getHeight(borderCCW)):
+        color = getColor(getPixel(borderCCW, x, y))
+        if distance(color, white) > 75.0:
+          setColor(getPixel(pic, x+targetX, y+targetY), color)
+    targetY = targetY + borderDim
+  #add corner images
+  #top left
+  targetX = 0
+  targetY = 0
+  for x in range(0, getWidth(topLeft)):
+    for y in range(0, getHeight(topLeft)):
+      color = getColor(getPixel(topLeft, x, y))
+      if distance(color, white) > 200.0:
+        setColor(getPixel(pic, x+targetX, y+targetY), color)
+  #top right
+  targetX = getWidth(pic)-cornerDim
+  targetY = 0
+  for x in range(0, getWidth(topRight)):
+    for y in range(0, getHeight(topRight)):
+      color = getColor(getPixel(topRight, x, y))
+      if distance(color, white) > 200.0:
+        setColor(getPixel(pic, x+targetX, y+targetY), color)
+  #bottom left
+  targetX = 0
+  targetY = getHeight(pic)-cornerDim
+  for x in range(0, getWidth(bottomLeft)):
+    for y in range(0, getHeight(bottomLeft)):
+      color = getColor(getPixel(bottomLeft, x, y))
+      if distance(color, white) > 200.0:
+        setColor(getPixel(pic, x+targetX, y+targetY), color)
+  #bottom right
+  targetX = getWidth(pic)-cornerDim
+  targetY = getHeight(pic)-cornerDim
+  for x in range(0, getWidth(bottomRight)):
+    for y in range(0, getHeight(bottomRight)):
+      color = getColor(getPixel(bottomRight, x, y))
+      if distance(color, white) > 200.0:
+        setColor(getPixel(pic, x+targetX, y+targetY), color)
+  return pic
