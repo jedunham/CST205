@@ -1,8 +1,10 @@
 """Midterm Pair Programmers:  Jennifer Dunham and Hyo Lee"""
+"""Filter 1:  CSUMBify"""
 
 def CSUMBify():
-  """TEXT DESCRIBING FILTER"""
+  """Adds CSUMB-esque features to image: Wave border, school colors, otter mascot, and text"""
   pic = makePicture(pickAFile())
+  #return error if chosen image dimensions are less than 200 pixels
   if (getWidth(pic) < 200) or (getHeight(pic) < 200):
     print "I'm sorry. Picture dimensions must be greater than 200 pixels."
     return 1 
@@ -15,6 +17,7 @@ def CSUMBify():
 
 def addBorder(pic):
   """adds wave border to pic"""
+  #load border images
   border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\waveborder.jpg")
   bottomLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomleft.jpg")
   bottomRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomright.jpg")
@@ -25,14 +28,14 @@ def addBorder(pic):
   #bottom border
   targetX = 0
   targetY = getHeight(pic)-getHeight(border)
-  for i in range(int(getWidth(pic)/borderDim)):
+  for i in range(int(getWidth(pic)/borderDim)): #int to prevent image falling out of range
     for x in range (0, getWidth(border)):
       for y in range (0, getHeight(border)):
         color = getColor(getPixel(border, x, y))
         if distance(color, white) > 75.0:
           setColor(getPixel(pic, x+targetX, y+targetY), color)
     targetX = targetX + borderDim
-  #rotate wave border for top border°
+  #rotate wave border for top border
   border180 = makeEmptyPicture(getWidth(border), getHeight(border))
   for x in range(0, getWidth(border)):
     for y in range(0, getHeight(border)):
@@ -41,7 +44,7 @@ def addBorder(pic):
   #topborder
   targetX = 0
   targetY = 0
-  for i in range(0, int(getWidth(pic)/borderDim)):
+  for i in range(0, int(getWidth(pic)/borderDim)): #int to prevent image falling out of range
     for x in range(0, getWidth(border180)):
       for y in range(0, getHeight(border180)):
         color = getColor(getPixel(border180, x, y))
@@ -57,7 +60,7 @@ def addBorder(pic):
   #rightborder
   targetX = getWidth(pic) - borderDim
   targetY = 0
-  for i in range(0, int(getHeight(pic)/borderDim)):
+  for i in range(0, int(getHeight(pic)/borderDim)): #int to prevent image falling out of range
     for x in range(0, getWidth(borderCW)):
       for y in range(0, getHeight(borderCW)):
         color = getColor(getPixel(borderCW, x, y))
@@ -73,7 +76,7 @@ def addBorder(pic):
   #leftborder
   targetX = 0
   targetY = 0
-  for i in range(0, int(getHeight(pic)/borderDim)):
+  for i in range(0, int(getHeight(pic)/borderDim)): #int to prevent image falling out of range
     for x in range(0, getWidth(borderCCW)):
       for y in range(0, getHeight(borderCCW)):
         color = getColor(getPixel(borderCCW, x, y))
@@ -116,6 +119,7 @@ def addBorder(pic):
   return pic
 
 def CSUMBBlend(pic):  
+  #blends CSUMB school colors into image in 3 vertical stripes
   bayBlue = makeColor(0, 34, 84)
   goldenSand = makeColor(143, 134, 79)
   valleyGreen = makeColor(0, 119, 81)
@@ -149,15 +153,6 @@ def CSUMBBlend(pic):
       setColor(pixel, newColor)
   return pic
   
-def whCopy(source, target, targetX, targetY):
-  """copy a picture onto a target picture excluding white"""
-  for x in range (0, getWidth(source)):
-    for y in range (0, getHeight(source)):
-      color = getColor(getPixel(source, x, y))
-      if distance(color, white) > 100.0:
-        setColor(getPixel(target, x+targetX, y+targetY), color)
-  return target  
-  
 def dkbCopy(source, target, targetX, targetY):
   """copy a picture onto a target picture excluding dark blue"""
   dkblue = makeColor(25, 49, 75)
@@ -168,19 +163,16 @@ def dkbCopy(source, target, targetX, targetY):
         setColor(getPixel(target, x+targetX, y+targetY), color)
   return target  
   
-  
-  
 #Text
 def text(pic):
-
+  #define style for images with width < 300
   if getWidth(pic) < 300:
     text = makeStyle(sansSerif, bold, 20)
     addTextWithStyle(pic, getWidth(pic)-110 , getHeight(pic)-25, "CSUMB", text, black) 
     addTextWithStyle(pic, getWidth(pic)-106, getHeight(pic)-29, "CSUMB", text, white)
-    
+  #define style for images with width >= 300
   else:
     text = makeStyle(sansSerif, bold, 40)
     addTextWithStyle(pic, getWidth(pic)-194, getHeight(pic)-30, "CSUMB", text, black) 
     addTextWithStyle(pic, getWidth(pic)-190, getHeight(pic)-34, "CSUMB", text, white)
- 
   return pic
