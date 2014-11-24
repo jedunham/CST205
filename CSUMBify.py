@@ -4,7 +4,7 @@ def CSUMBify():
   """TEXT DESCRIBING FILTER"""
   pic = makePicture(pickAFile())
   pic = CSUMBBlend(pic)
-  pic = dkbCopy(makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\otterface.jpg"), pic, 20, getHeight(pic)-77)
+  pic = dkbCopy(makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\otter.jpg"), pic, 20, getHeight(pic)-77)
   pic = addBorder(pic)
 
   show(pic)
@@ -145,15 +145,6 @@ def CSUMBBlend(pic):
       newColor = makeColor(newVGRed, newVGGreen, newVGBlue)
       setColor(pixel, newColor)
   return pic
-  
-def whCopy(source, target, targetX, targetY):
-  """copy a picture onto a target picture excluding white"""
-  for x in range (0, getWidth(source)):
-    for y in range (0, getHeight(source)):
-      color = getColor(getPixel(source, x, y))
-      if distance(color, white) > 100.0:
-        setColor(getPixel(target, x+targetX, y+targetY), color)
-  return target  
   
 def dkbCopy(source, target, targetX, targetY):
   """copy a picture onto a target picture excluding dark blue"""
