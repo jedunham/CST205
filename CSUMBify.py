@@ -1,9 +1,8 @@
 """Midterm Pair Programmers:  Jennifer Dunham and Hyo Lee"""
 """Filter 1:  CSUMBify"""
 
-def CSUMBify():
+def CSUMBify(pic):
   """Adds CSUMB-esque features to image: Wave border, school colors, otter mascot, and text"""
-  pic = makePicture(pickAFile())
   #return error if chosen image dimensions are less than 200 pixels
   if (getWidth(pic) < 200) or (getHeight(pic) < 200):
     print "I'm sorry. Picture dimensions must be greater than 200 pixels."
