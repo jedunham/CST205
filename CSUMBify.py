@@ -18,7 +18,7 @@ def addBorder(pic):
   topRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topright.jpg")
   borderDim=getHeight(border) #square image
   cornerDim=getHeight(bottomLeft) #square image
-  #bottomborder
+  #bottom border
   targetX = 0
   targetY = getHeight(pic)-getHeight(border)
   for i in range(int(getWidth(pic)/borderDim)):
