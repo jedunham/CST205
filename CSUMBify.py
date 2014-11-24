@@ -3,16 +3,19 @@
 def CSUMBify():
   """TEXT DESCRIBING FILTER"""
   pic = makePicture(pickAFile())
+  if (getWidth(pic) < 200) or (getHeight(pic) < 200):
+    print "I'm sorry. Picture dimensions must be greater than 200 pixels."
+    return 1 
   pic = CSUMBBlend(pic)
   pic = dkbCopy(makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\otter.jpg"), pic, 20, getHeight(pic)-77)
   pic = addBorder(pic)
-
+  pic = text(pic)
   show(pic)
   return pic
 
 def addBorder(pic):
   """adds wave border to pic"""
-  border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\waveborder.jpg")
+  border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\waveborder.jpg")
   bottomLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomleft.jpg")
   bottomRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomright.jpg")
   topLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topleft.jpg")
@@ -146,6 +149,15 @@ def CSUMBBlend(pic):
       setColor(pixel, newColor)
   return pic
   
+def whCopy(source, target, targetX, targetY):
+  """copy a picture onto a target picture excluding white"""
+  for x in range (0, getWidth(source)):
+    for y in range (0, getHeight(source)):
+      color = getColor(getPixel(source, x, y))
+      if distance(color, white) > 100.0:
+        setColor(getPixel(target, x+targetX, y+targetY), color)
+  return target  
+  
 def dkbCopy(source, target, targetX, targetY):
   """copy a picture onto a target picture excluding dark blue"""
   dkblue = makeColor(25, 49, 75)
@@ -155,3 +167,20 @@ def dkbCopy(source, target, targetX, targetY):
       if distance(color, dkblue) > 50.0:
         setColor(getPixel(target, x+targetX, y+targetY), color)
   return target  
+  
+  
+  
+#Text
+def text(pic):
+
+  if getWidth(pic) < 300:
+    text = makeStyle(sansSerif, bold, 20)
+    addTextWithStyle(pic, getWidth(pic)-110 , getHeight(pic)-25, "CSUMB", text, black) 
+    addTextWithStyle(pic, getWidth(pic)-106, getHeight(pic)-29, "CSUMB", text, white)
+    
+  else:
+    text = makeStyle(sansSerif, bold, 40)
+    addTextWithStyle(pic, getWidth(pic)-194, getHeight(pic)-30, "CSUMB", text, black) 
+    addTextWithStyle(pic, getWidth(pic)-190, getHeight(pic)-34, "CSUMB", text, white)
+ 
+  return pic
