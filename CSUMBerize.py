@@ -8,7 +8,7 @@ def CSUMBerize(pic):
     print "I'm sorry. Picture dimensions must be greater than 200 pixels."
     return 1 
   pic = CSUMBBlend(pic)
-  pic = dkbCopy(makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\otter.jpg"), pic, 20, getHeight(pic)-77)
+  pic = dkbCopy(makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\otter.jpg"), pic, 20, getHeight(pic)-77)
   pic = addBorder(pic)
   pic = text(pic)
   show(pic)
@@ -17,11 +17,11 @@ def CSUMBerize(pic):
 def addBorder(pic):
   """adds wave border to pic"""
   #load border images
-  border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\waveborder.jpg")
-  topLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topleft.jpg")
+  border = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\waveborder.jpg")
+  topLeft = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\topleft.jpg")
   
   #declare variables
-  borderDim=getHeight(border)     #square image
+  borderDim=getHeight(border)  #square image
   cornerDim=getHeight(topLeft) #square image
   
   #bottom border
@@ -76,7 +76,6 @@ def addBorder(pic):
   topRight = rotatePic(bottomRight)
   pic = whCopy(topRight, pic, targetX, targetY, 200.0)
   
- 
   return pic
 
 def CSUMBBlend(pic):  
