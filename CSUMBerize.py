@@ -18,14 +18,11 @@ def addBorder(pic):
   """adds wave border to pic"""
   #load border images
   border = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\waveborder.jpg")
-  bottomLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomleft.jpg")
-  bottomRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\bottomright.jpg")
   topLeft = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topleft.jpg")
-  topRight = makePicture("C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\\topright.jpg")
   
   #declare variables
   borderDim=getHeight(border)     #square image
-  cornerDim=getHeight(bottomLeft) #square image
+  cornerDim=getHeight(topLeft) #square image
   
   #bottom border
   targetX = 0
@@ -63,18 +60,23 @@ def addBorder(pic):
   targetX = 0
   targetY = 0
   pic = whCopy(topLeft, pic, targetX, targetY, 200.0)
-  #top right
-  targetX = getWidth(pic)-cornerDim
-  targetY = 0
-  pic = whCopy(topRight, pic, targetX, targetY, 200.0)
   #bottom left
   targetX = 0
   targetY = getHeight(pic)-cornerDim
+  bottomLeft = rotatePic(topLeft)
   pic = whCopy(bottomLeft, pic, targetX, targetY, 200.0)
   #bottom right
   targetX = getWidth(pic)-cornerDim
   targetY = getHeight(pic)-cornerDim
+  bottomRight = rotatePic(bottomLeft)
   pic = whCopy(bottomRight, pic, targetX, targetY, 200.0)
+  #top right
+  targetX = getWidth(pic)-cornerDim
+  targetY = 0
+  topRight = rotatePic(bottomRight)
+  pic = whCopy(topRight, pic, targetX, targetY, 200.0)
+  
+ 
   return pic
 
 def CSUMBBlend(pic):  
