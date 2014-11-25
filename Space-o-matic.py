@@ -1,8 +1,13 @@
 """Midterm Pair Programmers:  Jennifer Dunham and Hyo Lee"""
+"""Filter 2:  Space-o-matic"""
 
 def spaceomatic():
-  """TEXT DESCRIBING FILTER"""
-  pic = makePicture(pickAFile())
+  """Creates a space-themed image"""
+  pic = makePicture(pickAFile()) #REMOVE AND ADD PIC TO PARAMETER BEFORE SUBMITTING ASSIGNMENT
+  #return error if chosen image dimensions are above maximum tolerance
+  if (getWidth(pic) > 1700) or (getHeight(pic) > 1071):
+    print "I'm sorry. Picture dimensions must be less than 1700 pixels width and 1071 pixels height."
+    return 1 
   pic = spaceBlend(pic)
   pic = addBorder(pic)
      
@@ -10,18 +15,22 @@ def spaceomatic():
   return pic
 
 def spaceBlend(pic):  
+  """Blends source image with a space image"""
   width = getWidth(pic)
   height = getHeight(pic)
   spacePic = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\spacebg.jpg")
   blendPic = makeEmptyPicture(width, height)
-  amount = 0.5
   for x in range(0, width):
     for y in range(0, height):
       targetPx = getPixel(blendPic, x, y)
       px1 = getPixel(pic, x, y)
       px2 = getPixel(spacePic, x, y)
-      r1, g1, b1 = getRed(px1), getGreen(px1), getBlue(px1)
-      r2, g2, b2 = getRed(px2), getGreen(px2), getBlue(px2)
+      r1 = getRed(px1)
+      g1 = getGreen(px1)
+      b1 = getBlue(px1)
+      r2 = getRed(px2)
+      g2 = getGreen(px2)
+      b2 = getBlue(px2)
       blendColor = makeColor((r1+r2)/2, (g1+g2)/2, (b1+b2)/2)
       setColor(targetPx, blendColor)
   return blendPic
