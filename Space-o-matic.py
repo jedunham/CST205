@@ -1,18 +1,26 @@
 """Midterm Pair Programmers:  Jennifer Dunham and Hyo Lee"""
 """Filter 2:  Space-o-matic"""
 
-def spaceomatic():
+def spaceomatic(pic):
   """Creates a space-themed image"""
-  pic = makePicture(pickAFile()) #REMOVE AND ADD PIC TO PARAMETER BEFORE SUBMITTING ASSIGNMENT
   #return error if chosen image dimensions are above maximum tolerance
   if (getWidth(pic) > 1700) or (getHeight(pic) > 1071):
-    print "I'm sorry. Picture dimensions must be less than 1700 pixels width and 1071 pixels height."
+    print "I'm sorry. Picture dimensions must no greater than 1700 pixels width and 1071 pixels height."
+    return 1
+  #return error if chosen image dimensions are below minimum tolerance
+  if (getWidth(pic) < 150 or getHeight(pic) < 150):
+    print "I'm sorry. Picture dimensions must be at least 150 pixels."
     return 1 
   pic = spaceBlend(pic)
   ulplanet = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\planetul.jpg")
   urplanet = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\planetur.jpg")
   llplanet = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\planetll.jpg")
   lrplanet = makePicture(r"C:\Users\whitenebula\Documents\School\CSUMB\CST 205\Module 4\midterm\sourceimages\planetlr.jpg")
+  if getWidth(pic)< 300 or getHeight(pic) < 300:
+    ulplanet = shrink(ulplanet)
+    urplanet = shrink(urplanet)
+    llplanet = shrink(llplanet)
+    lrplanet = shrink(lrplanet)
   pic = grCopy(ulplanet, pic, 20, 20)
   pic = grCopy(urplanet, pic, getWidth(pic)-20-getWidth(urplanet), 20)
   pic = grCopy(llplanet, pic, 20, getHeight(pic)-20-getHeight(llplanet))
@@ -30,7 +38,7 @@ def spaceBlend(pic):
   blendPic = makeEmptyPicture(width, height)
   for x in range(0, width):
     for y in range(0, height):
-      targetPx = getPixel(blendPic, x, y)
+      blendPx = getPixel(blendPic, x, y)
       px1 = getPixel(pic, x, y)
       px2 = getPixel(spacePic, x, y)
       r1 = getRed(px1)
@@ -40,7 +48,7 @@ def spaceBlend(pic):
       g2 = getGreen(px2)
       b2 = getBlue(px2)
       blendColor = makeColor((r1+r2)/2, (g1+g2)/2, (b1+b2)/2)
-      setColor(targetPx, blendColor)
+      setColor(blendPx, blendColor)
   return blendPic
   
 def addBorder(pic):
@@ -89,7 +97,6 @@ def addBorder(pic):
     for y in range (0, getHeight(pic)):
       px = getPixel(pic, x, y)
       setColor(px, innerBorder)
-  show(pic)
   return pic
 
 def grCopy(source, target, targetX, targetY):
@@ -100,4 +107,12 @@ def grCopy(source, target, targetX, targetY):
       if distance(color, green) > 165.0:
         setColor(getPixel(target, x+targetX, y+targetY), color)
   return target
-                  
+  
+def shrink(pic):
+  """Shrinks picture; decreases width & height by half"""
+  smallPic = makeEmptyPicture((getWidth(pic)/2), (getHeight(pic)/2))
+  for x in range (0, getWidth(pic)-1, 2):
+    for y in range (0, getHeight(pic)-1, 2):
+      px = getColor(getPixel (pic, x, y))
+      setColor(getPixel(smallPic, x/2, y/2), px)  
+  return smallPic            
