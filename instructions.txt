@@ -1,0 +1,11 @@
+1. git clone https://github.com/cst205Francisco/cst205final.git
+2. git remote add (nickname you like here) https://github.com/cst205Francisco/cst205final.git
+3. git remote -v   (should show: nickname	  https://github.com/cst205Francisco/cst205final.git(fetch)
+		   	         nickname	  https://github.com/cst205Francisco/cst205final.git(pull)  )
+
+4. before any git commands from here make sure you are in the directory of the cst205final folder
+	if you need to change directory cd  cst205final etc.
+5. to contribute -> git add (filename)
+6. 		    git commit -m "notes of changes"
+7. make sure you have other people's changes -> git pull  (must have changes before you can push your changes = do 'git pull' often)
+8. to upload your changes -> git push
